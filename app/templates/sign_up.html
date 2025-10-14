@@ -1,0 +1,162 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<!-- Signup Page -->
+<section class="container d-flex justify-content-center align-items-center mt-4 mb-3" style="min-height: 100vh;">
+    <div class="card shadow-lg p-5 w-100 bg-light border border-primary" style="max-width: 650px;">
+        <h3 class="text-center text-primary mb-4">Create Your ABC School Account</h3>
+        <form method="POST" action="{{ url_for('auth.sign_up') }}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Your full name"
+                    required>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Create Username"
+                        required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Your address"
+                        required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Enter password" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                        placeholder="Confirm password" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="role" class="form-label">You are a:</label>
+                    <select class="form-select" id="role" name="role" required>
+                        <option value="" disabled selected>Select role</option>
+                        <!-- <option value="Admin">Admin</option> -->
+                        <option value="Student">Student</option>
+                        <option value="Teacher">Teacher</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" id="gender" name="gender" required>
+                        <option value="" disabled selected>Select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" readonly>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="profile_photo" class="form-label">Profile Photo</label>
+                <input class="form-control" type="file" id="profile_photo" name="profile_photo" accept="image/*" />
+            </div>
+
+
+            <div class="mb-3">
+                <label for="qualification" class="form-label">Qualification</label>
+                <select class="form-select" id="qualification" name="qualification"
+                    onchange="toggleQualificationInput()" required>
+                    <option value="" disabled selected>Select qualification</option>
+                    <option value="SEE">SEE</option>
+                    <option value="+2">+2</option>
+                    <option value="Bachelor">Bachelor</option>
+                    <option value="Master">Master</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="mb-3" id="otherQualField" style="display: none;">
+                <label for="otherQualification" class="form-label">Specify Other Qualification</label>
+                <input type="text" class="form-control" id="otherQualification" name="otherQualification">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Document Type</label>
+                <select class="form-select" id="documentType" name="documentType" onchange="toggleDocInput()" required>
+                    <option value="" disabled selected>Select document</option>
+                    <option value="Citizenship">Citizenship</option>
+                    <option value="Passport">Passport</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="mb-3" id="otherDocField" style="display: none;">
+                <label for="otherDocument" class="form-label">Specify Other Document</label>
+                <input type="text" class="form-control" id="otherDocument" name="otherDocument">
+            </div>
+            <div class="mb-3">
+                <label for="documentFile" class="form-label">Upload Document File</label>
+                <input type="file" class="form-control" id="documentFile" name="documentFile" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="notes" class="form-label">Additional Notes</label>
+                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Script to calculate age and toggle inputs -->
+<script>
+    document.getElementById("dob").addEventListener("change", function () {
+        const dob = new Date(this.value);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        document.getElementById("age").value = age;
+    });
+
+    function toggleDocInput() {
+        const docType = document.getElementById("documentType").value;
+        const otherField = document.getElementById("otherDocField");
+        if (docType === "Other") {
+            otherField.style.display = "block";
+            document.getElementById("otherDocument").required = true;
+        } else {
+            otherField.style.display = "none";
+            document.getElementById("otherDocument").required = false;
+        }
+    }
+
+    function toggleQualificationInput() {
+        const qual = document.getElementById("qualification").value;
+        const otherQualField = document.getElementById("otherQualField");
+        if (qual === "Other") {
+            otherQualField.style.display = "block";
+            document.getElementById("otherQualification").required = true;
+        } else {
+            otherQualField.style.display = "none";
+            document.getElementById("otherQualification").required = false;
+        }
+    }
+</script>
+
+{% endblock %}
