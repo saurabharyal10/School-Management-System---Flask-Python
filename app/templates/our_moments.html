@@ -1,0 +1,55 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<!-- Our Moments Page -->
+<section class="container mt-5" id="moments">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Our Moments</h2>
+        <p class="text-muted">Capturing the joy and vibrance of school life</p>
+    </div>
+
+    <!-- Gallery Grid (5x5 cards) -->
+    <div class="row g-3">
+        {% for i in range(25) %}
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+            <div class="card">
+                <img src="../static/images/ab.jpg" class="card-img-top" alt="Moment {{ i+1 }}">
+                <!-- <img src="https://source.unsplash.com/400x300/?school,event,students,{{i}}" class="card-img-top" alt="Moment {{ i+1 }}"> -->
+                <div class="card-body p-2">
+                    <p class="card-text small text-center">Moment {{ i+1 }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Glimpse of a Tour Section -->
+    <div class="row align-items-center my-5">
+        <div class="col-md-6">
+            <h4 class="fw-semibold">Glimpse of Our Educational Tour</h4>
+            <p>
+                One of the most memorable experiences for our students is the annual educational tour. This year, our
+                students explored
+                historical sites, museums, and universities, providing them with real-world learning and priceless
+                memories.
+                Our tours are designed to ignite curiosity, promote teamwork, and build stronger bonds among peers.
+            </p>
+            <p>
+                These moments go beyond academics — they shape lifelong friendships and spark inspiration that fuels
+                future ambitions.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <img src="../static/images/ab.jpg" class="img-fluid rounded shadow" alt="School Tour">
+            <!-- <img src="https://source.unsplash.com/800x500/?school,tour,students" class="img-fluid rounded shadow" alt="School Tour"> -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center p-4 mt-5" id="contact">
+    <p>&copy; 2025 ABC School. All rights reserved.</p>
+    <p>Contact us: info@abcschool.edu | +977-1234567890</p>
+</footer>
+
+{% endblock %}
