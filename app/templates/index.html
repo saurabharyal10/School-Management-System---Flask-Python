@@ -1,0 +1,50 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<!-- Home Banner -->
+<div>
+    <img src="../static/images/homebanner.png" class="banner" alt="School Banner">
+</div>
+
+<!-- Principal Message Section -->
+<section class="container my-5" id="about">
+    <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+            <img src="../static/images/ab.jpg" class="principal-img" alt="Principal">
+        </div>
+        <div class="col-md-8">
+            <h3>Message from the Principal</h3>
+            <p>
+                Welcome to ABC School! Our mission is to nurture young minds and help them grow into responsible citizens.
+                We are committed to providing a holistic education and instilling moral values in every student.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Moments (Gallery Cards) -->
+<section class="container my-5" id="moments">
+    <div class="row g-4">
+        {% for i in range(9) %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="../static/images/ab.jpg" class="card-img-top" alt="Moment">
+                <div class="card-body">
+                    <p class="card-text">School Activity Moment {{ i+1 }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-end mt-3">
+        <a href="/our_moments" class="btn btn-outline-primary">Read More</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center p-4 mt-5" id="contact">
+    <p>&copy; 2025 ABC School. All rights reserved.</p>
+    <p>Contact us: info@abcschool.edu | +977-1234567890</p>
+</footer>
+
+{% endblock %}
