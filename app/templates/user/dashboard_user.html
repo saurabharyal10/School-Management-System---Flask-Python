@@ -1,0 +1,10 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<div class="container text-center mt-5">
+    <h2 class="text-success">Welcome, {{ user.full_name }}!</h2>
+    <p class="lead">You are logged in as <strong>{{ user.role }}</strong>.</p><br><br><br>
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger btn-logout">Logout</a>
+</div>
+
+{% endblock %}
