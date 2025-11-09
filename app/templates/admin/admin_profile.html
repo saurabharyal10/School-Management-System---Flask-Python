@@ -1,0 +1,168 @@
+{% extends 'admin/admin_nav.html' %}
+
+{% block content %}
+<style>
+    /* Container for profile */
+    .profile-container {
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        animation: bgFade 2s ease forwards;
+        padding: 2rem;
+    }
+
+    @keyframes bgFade {
+        from {
+            background-position: 0% 50%;
+        }
+
+        to {
+            background-position: 100% 50%;
+        }
+    }
+
+    /* Card holding the profile */
+    .profile-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        padding: 2.5rem 2rem 3rem;
+        text-align: center;
+        animation: slideUpFade 1s ease forwards;
+    }
+
+    @keyframes slideUpFade {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Profile image styling */
+    .profile-img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 6px solid #764ba2;
+        box-shadow: 0 4px 15px rgba(118, 75, 162, 0.6);
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Name styling */
+    .profile-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 0.3rem;
+    }
+
+    /* Address styling */
+    .profile-address {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Info rows container */
+    .profile-info {
+        text-align: left;
+    }
+
+    /* Single info item */
+    .info-item {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Icon style (using emoji here, can be replaced with svg/fontawesome) */
+    .info-icon {
+        font-size: 1.3rem;
+    }
+
+    /* Info label */
+    .info-label {
+        font-weight: 600;
+        color: #555;
+        width: 110px;
+    }
+
+    /* Info value */
+    .info-value {
+        color: #333;
+        font-size: 1rem;
+        word-break: break-word;
+    }
+
+    /* Responsive for smaller devices */
+    @media (max-width: 450px) {
+        .profile-card {
+            padding: 2rem 1.2rem 2.5rem;
+        }
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-card" tabindex="0" aria-label="Admin Profile Card">
+        <!-- Profile photo -->
+        <img src="{{ url_for('static', filename='images/' ~ profile_image) }}" alt="Profile Image" class="profile-img">
+
+
+
+        <!-- Name -->
+        <h1 class="profile-name">{{ user.full_name }}</h1>
+
+        <!-- Address -->
+        <p class="profile-address">{{ user.address }}</p>
+
+        <!-- Additional info -->
+        <div class="profile-info">
+            <div class="info-item">
+                <span class="info-icon" aria-hidden="true">📧</span>
+                <span class="info-label">Username:</span>
+                <span class="info-value">{{ user.username }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-icon" aria-hidden="true">🎂</span>
+                <span class="info-label">Date of Birth:</span>
+                <span class="info-value">{{ user.dob.strftime('%Y-%m-%d') if user.dob else 'N/A' }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-icon" aria-hidden="true">⚧️</span>
+                <span class="info-label">Gender:</span>
+                <span class="info-value">{{ user.gender or 'N/A' }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-icon" aria-hidden="true">🎓</span>
+                <span class="info-label">Role:</span>
+                <span class="info-value">{{ user.role }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-icon" aria-hidden="true">📅</span>
+                <span class="info-label">Age:</span>
+                <span class="info-value">{{ user.age or 'N/A' }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
