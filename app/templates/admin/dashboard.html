@@ -1,0 +1,79 @@
+{% extends '/admin/admin_nav.html' %}
+{% block content %}
+
+<style>
+    .dashboard-container {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+        animation: fadeIn 1s ease-in;
+    }
+
+    .dashboard-card {
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+        animation: slideUp 1s ease-in-out;
+    }
+
+    h2 {
+        color: #00796b;
+        font-weight: 700;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .btn-logout {
+        margin-top: 25px;
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="dashboard-card">
+        <h2>Welcome to your Dashboard, {{ user.full_name }}!</h2>
+        <p>You have successfully logged in. Start exploring the system from here.</p>
+
+        <form action="{{ url_for('admin.delete_all_users') }}" method="POST"
+            onsubmit="return confirm('Are you sure you want to delete all users except yourself? This action cannot be undone.')">
+            <button type="submit" class="btn btn-danger mb-3">
+                Delete All Users (Except Me)
+            </button>
+        </form>
+
+
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger btn-logout">Logout</a>
+    </div>
+</div>
+
+{% endblock %}
